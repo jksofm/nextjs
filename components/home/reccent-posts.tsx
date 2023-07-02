@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Box, Container, Stack, Typography, Button, Grid ,Link as MuiLink} from '@mui/material';
 import SinglePost from '../common/singlepost';
 import Link from 'next/link';
+import { Post } from '@/models';
 
 export interface RecentPostsProps {}
 
 export default function RecentPosts(props: RecentPostsProps) {
-  const dataPosts = [
+  const dataPosts: Post[] = [
     {
       id: 1,
       header: 'Making a design system from sratch',
@@ -14,7 +15,11 @@ export default function RecentPosts(props: RecentPostsProps) {
       tag: 'Desgin, Pattern',
       content:
         'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+        slug:"",
+        description: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."
+
     },
+    
     {
       id: 2,
       header: 'Creating pixel perfect icons in Figma',
@@ -22,6 +27,8 @@ export default function RecentPosts(props: RecentPostsProps) {
       tag: 'Figma, Icon Design',
       content:
         'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.',
+        slug:"",
+        description: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
     },
   ];
   return (
@@ -72,6 +79,9 @@ export default function RecentPosts(props: RecentPostsProps) {
                       tag={post.tag}
                       content={post.content}
                       created={post.created}
+                      slug={post.slug}
+                      id={post.id}
+                      description={post.description}
                     />
                   </Grid>
                 );

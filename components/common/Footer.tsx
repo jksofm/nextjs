@@ -17,7 +17,7 @@ export default function Footer (props: FooterProps) {
       
           <MuiLink target='_blank' rel='noopener noreferrer' sx={{
             margin: "0 12px"
-          }}   component={Link} passHref href="">
+          }}   component={Link} passHref href="https://www.google.com/">
             <FacebookIcon fontSize="large" />
           </MuiLink>
 
@@ -25,7 +25,7 @@ export default function Footer (props: FooterProps) {
         
           <MuiLink target='_blank' rel='noopener noreferrer'  sx={{
             margin: "0 12px"
-          }}  component={Link} passHref href="">
+          }}  component={Link} passHref href="https://www.google.com/">
             <InstagramIcon fontSize="large" />
           </MuiLink>
           
@@ -33,7 +33,7 @@ export default function Footer (props: FooterProps) {
        
           <MuiLink target='_blank' rel='noopener noreferrer'  sx={{
             margin: "0 12px"
-          }}  component={Link} passHref href="">
+          }}  component={Link} passHref href="https://www.google.com/">
             <TwitterIcon fontSize="large" />
           </MuiLink>
           
@@ -41,7 +41,7 @@ export default function Footer (props: FooterProps) {
         
           <MuiLink target='_blank' rel='noopener noreferrer'  sx={{
             margin: "0 12px"
-          }}  component={Link} passHref href="">
+          }}  component={Link} passHref href="https://www.google.com/">
             <LinkedInIcon fontSize="large" />
           </MuiLink>
           

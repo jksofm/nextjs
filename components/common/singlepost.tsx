@@ -8,7 +8,7 @@ import { CardActionArea } from '@mui/material';
 import { Post } from '@/models/post';
 
 
-export default function SinglePost ({header,created,content,tag}: Post) {
+export default function SinglePost ({header,created,content,tag,description}: Post) {
   return (
     <Card sx={{padding: "14px 10px",boxShadow:"none"}}>
     <CardActionArea>
@@ -29,7 +29,7 @@ export default function SinglePost ({header,created,content,tag}: Post) {
          }}>{tag}</Typography>
         </Stack>
         <Typography marginTop="10px" fontSize="16px" variant="body2" color="#21243D">
-        {content}
+        {description}
         </Typography>
       </CardContent>
     </CardActionArea>
