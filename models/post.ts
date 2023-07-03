@@ -16,4 +16,5 @@ export interface Post {
     slug: string,
     author? : Author
     description: string 
+    thumbnailUrl? : string
 }

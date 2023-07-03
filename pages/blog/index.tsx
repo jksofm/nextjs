@@ -6,6 +6,7 @@ import Link from 'next/link';
 import {Box,Container,Typography,Divider,Link as MuiLink} from "@mui/material"
 import * as React from 'react';
 import SinglePost from '@/components/common/singlepost';
+import { Seo } from '@/components/common';
 
 export interface BlogListPageProps {
     blogs : Post[]
@@ -16,7 +17,14 @@ blogs
 }: BlogListPageProps) {
   console.log(blogs)
   return (
-    <Container sx={{paddingTop:"100px",paddingBottom: "100px"}}>
+    <Box>
+        <Seo data={{
+        title:"Hello!This is Blog Page!" ,
+        description:"Just call me. 093540****",
+        url: "https://nextjs-git-master-jksofm.vercel.app/blog",
+        thumbnailUrl: "https://res.cloudinary.com/dq52ggm0k/image/upload/v1688264648/cld-sample-4.jpg",
+      } } />
+      <Container sx={{paddingTop:"100px",paddingBottom: "100px"}}>
       <Box>
 
       <Typography variant='h4' fontWeight="700" marginLeft="26px" component="h1">
@@ -64,6 +72,7 @@ blogs
 
 
     </Container>
+    </Box>
   );
 }
 BlogListPage.Layout = MainLayout

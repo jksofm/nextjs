@@ -11,8 +11,17 @@ tags: [git, git trong dự án thực tế]
 Khi nhắc tới git có khá là nhiều lệnh khác nhau, tuy nhiên trong thực tế sử dụng trong dự án thì có những lệnh nào được sử dụng nhiều nhất? 🤔 Hãy cùng mình khám phá qua bài blog này nhé! 😉
 
 <!-- truncate-->
+## Table of contents
+
+
 
 ## 0. Nhận task, ví dụ ở đây task có id là 123
+```js
+function hello (){
+    
+}
+
+```
 
 - Tí nữa, đọc thấy tạo nhánh có số 123 thì các bạn hiểu ngầm nó chính là `taskId` nhen.
 - Ví dụ team mình dev trên nhánh `develop`.

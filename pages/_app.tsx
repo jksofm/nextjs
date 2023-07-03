@@ -12,6 +12,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../utils/theme';
 import createEmotionCache from '../utils/create-emotion-cache';
 import Head from 'next/head';
+import '@/styles/prism.css'
 
 const clientSideEmotionCache = createEmotionCache();
 

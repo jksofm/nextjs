@@ -11,6 +11,7 @@ tags: [reactjs, lộ trình học reactjs cơ bản]
 Rất nhiều bạn thắc mắc không biết là học ReactJS là học những gì? Rồi bắt đầu từ đâu? Sử dụng những package, thư viện nào, ... Để giúp các bạn trả lời câu hỏi đó, mình có tổng hợp lại một số nguồn tham khảo cũng như kinh nghiệm cá nhân của mình để viết ra lộ trình học ReactJS này, hi vọng giúp ích được cho các bạn. 😉
 
 <!-- truncate-->
+## Table of contents
 
 - **Đôi tượng**: mới bắt đầu học ReactJS mà không biết học những gì.
 - **Yêu cầu kiến thức**: 

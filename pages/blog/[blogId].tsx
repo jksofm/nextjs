@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 import { Container, Box, Stack, Typography } from '@mui/material';
 import MainLayout from '@/layout/main';
+import Script from 'next/script';
+import { Seo } from '@/components/common';
 
 export interface PostDetailPageProps {
   post: Post;
@@ -17,7 +19,14 @@ export default function BlogDetailPage({ post }: PostDetailPageProps) {
   if (!post) return <h1>Khoong co thong tin</h1>;
   console.log(typeof(post.htmlContent))
   return (
-    <Container
+         <Box>
+          <Seo data={{
+        title:`${post.header}`,
+        description:`${post.description}`,
+        url: `https://nextjs-git-master-jksofm.vercel.app/blog/${post.slug}`,
+        thumbnailUrl: `${post.author?.avatarUrl}`,
+      } } />
+             <Container
       sx={{
         padding: '120px 0',
       }}
@@ -50,10 +59,20 @@ export default function BlogDetailPage({ post }: PostDetailPageProps) {
           dangerouslySetInnerHTML={{ __html: `${post.htmlContent}` }}
           sx={{
             '& img': { width: '100%', borderRadius: '10px', margin: '20px 0' },
+            '& li': {
+              marginLeft: "26px"
+            },
+            '& h2':{
+              marginBottom: "20px",
+              marginTop :"20px"
+
+            }
           }}
         ></Typography>
       </Box>
     </Container>
+    <Script src="/prism.js" strategy='afterInteractive'></Script>
+         </Box>
   );
 }
 BlogDetailPage.Layout = MainLayout;

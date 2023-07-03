@@ -4,6 +4,17 @@ import matter from 'gray-matter'
 import { Post } from "@/models"
 import { remark } from 'remark';
 import html from 'remark-html';
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeDocument from 'rehype-document'
+import rehypeFormat from 'rehype-format'
+import rehypeStringify from 'rehype-stringify'
+import {reporter} from 'vfile-reporter'
+import remarkToc from "remark-toc";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings/lib";
+import remarkPrism from "remark-prism";
 const BLOG_FOLDER = path.join(process.cwd(),"blog-md-files")
 export async function GetBlogListFromMarkDown() : Promise<Post[]> {
     const fileNameList = fs.readdirSync(BLOG_FOLDER)
@@ -85,10 +96,22 @@ export async function GetBlogFromId(postId:string|string[]):Promise<Post> {
         const  matterResult = matter(fileContent,{excerpt_separator: '<!-- truncate-->'})
        
         const {data,excerpt,content} = matterResult
-        const processedContent = await remark()
-        .use(html)
-        .process(matterResult.content);
-      const contentHtml = processedContent.toString();
+        // const processedContent = await remark()
+        // .use(html)
+        // .process(matterResult.content);
+          const processdContent = await unified()
+          .use(remarkParse)
+          .use(remarkToc)
+          .use(remarkPrism)
+          .use(remarkRehype)
+          .use(rehypeSlug)
+          .use(rehypeAutolinkHeadings,{behavior: "wrap"})
+          .use(rehypeDocument, {title: '👋🌍'})
+          .use(rehypeFormat)
+          .use(rehypeStringify)
+          .process(content)
+          
+      const contentHtml = processdContent.toString();
       
         if(data.slug === postId){
             postData = {
