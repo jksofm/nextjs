@@ -6,11 +6,13 @@ export const ROUTE_LIST = [
         label:"Home",
         path:'/',
         icon : HomeIcon,
+
     },
     {
         label: "Works",
         path: '/works',
-        icon: WorkIcon
+        icon: WorkIcon,
+        
     },
     {
         label:'Blog',

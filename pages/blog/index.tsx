@@ -7,6 +7,8 @@ import {Box,Container,Typography,Divider,Link as MuiLink} from "@mui/material"
 import * as React from 'react';
 import SinglePost from '@/components/common/singlepost';
 import { Seo } from '@/components/common';
+import AdminLayout from '@/layout/admin';
+import AuthLayout from '@/components/common/auth';
 
 export interface BlogListPageProps {
     blogs : Post[]

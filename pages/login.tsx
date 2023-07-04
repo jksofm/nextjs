@@ -1,59 +1,63 @@
-import * as React from 'react';
-import { authApi } from '../api-client';
-import { useAuth } from '../hooks';
+import LoginForm from '@/components/auth/login-form';
+import { LoginPayload } from '@/models';
+import { Box, Button, Container, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useAuth } from '../hooks';
 
-export default function LoginPage(){
-    const {profile,login,logout} = useAuth({
-        revalidateOnMount: false
-   })
-   const router = useRouter()
-    const handleLoginClick=async()=>{
-        try{
-           await login();
-           console.log('redirect to dashboard')
-           
-        }catch(error) {
-              console.log("fail to Login",error)
-        }
+export default function LoginPage() {
+  const { profile, login, logout } = useAuth({
+    revalidateOnMount: false,
+  });
+  const router = useRouter();
+
+  const handleLoginClick = async (data: LoginPayload) => {
+    try {
+      await login(data);
+      console.log('redirect to dashboard');
+    } catch (error) {
+      console.log('fail to Login', error);
     }
-    // const handleGetProfileClick= async()=>{
-    //             try{
-    //                 await authApi.getProfile()
-    //             }catch(error) {
-    //                 console.log("fail to Login",error)
-    //           }
-    // }
-    const handleLogoutClick = async()=>{
-        try{
-            await logout()
-        }catch(error) {
-            console.log("log out",error)
-      }
+  };
+  // Chuyển sang home page khi đăng nhập thành công
+  React.useEffect(() => {
+    if (profile !== undefined && profile?.hasOwnProperty('username')) {
+      router.push('/');
     }
-    console.log(profile)
-    return(
-        <div>
-            <h1>Login Page</h1>
-            {profile !== undefined && profile.hasOwnProperty("username")  &&   
-            
-            <>
-             <p>Profile: {JSON.stringify(profile)}</p>
-             <button onClick={()=>{
-                router.push("/about")
-            }}>Go to About Page</button>
-            </>
-            }
-          
-             
-             
-            <button onClick={handleLoginClick}>Login</button>
-            <button onClick={handleLogoutClick}>Logout</button>
+  }, [profile]);
 
-           
+  return (
+    <Container>
+     
+        <>
+          <Box>
+            <Paper
+              elevation={6}
+              sx={{
+                mx: 'auto',
+                mt: 8,
+                p: 4,
+                maxWidth: '480px',
+              }}
+            >
+              <Typography
+                sx={{
+                  color: 'Black',
+                  fontWeight: '700',
+                  textAlign: 'center',
+                }}
+                variant="h3"
+                component="h1"
+              >
+                Login Page
+              </Typography>
+              <LoginForm username="" password="" onSubmit={handleLoginClick} />
+            </Paper>
+          </Box>
+        </>
+      
 
-            {/* <button onClick={handleGetProfileClick}>Get Profile</button> */}
-
-        </div>
-    )
+      {/* <button onClick={handleGetProfileClick}>Get Profile</button> */}
+    </Container>
+  );
 }

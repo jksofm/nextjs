@@ -8,6 +8,8 @@ import { Container, Box, Stack, Typography } from '@mui/material';
 import MainLayout from '@/layout/main';
 import Script from 'next/script';
 import { Seo } from '@/components/common';
+import AdminLayout from '@/layout/admin';
+import AuthLayout from '@/components/common/auth';
 
 export interface PostDetailPageProps {
   post: Post;
@@ -19,7 +21,8 @@ export default function BlogDetailPage({ post }: PostDetailPageProps) {
   if (!post) return <h1>Khoong co thong tin</h1>;
   console.log(typeof(post.htmlContent))
   return (
-         <Box>
+    <AuthLayout>
+  <Box>
           <Seo data={{
         title:`${post.header}`,
         description:`${post.description}`,
@@ -73,6 +76,8 @@ export default function BlogDetailPage({ post }: PostDetailPageProps) {
     </Container>
     <Script src="/prism.js" strategy='afterInteractive'></Script>
          </Box>
+    </AuthLayout>
+       
   );
 }
 BlogDetailPage.Layout = MainLayout;

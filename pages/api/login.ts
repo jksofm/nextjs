@@ -39,6 +39,11 @@ export default function handler(
             
             try {
           /// Xu li cookie
+          const isSuccess = proxyRes.statusCode && proxyRes.statusCode >= 200 && proxyRes.statusCode <300
+          if(!isSuccess){
+            (res as NextApiResponse).status(proxyRes.statusCode || 500).json(body)
+            return resolve(true)
+          }
        
 
               const { accessToken , expiredAt} = JSON.parse(body)

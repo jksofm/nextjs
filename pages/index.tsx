@@ -7,11 +7,13 @@ import HeroSection from '@/components/home/hero'
 import RecentPosts from '@/components/home/reccent-posts'
 import FeaturedWorks from '@/components/home/fetured-works'
 import { Seo } from '@/components/common'
+import { useAuth } from '@/hooks'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const Home: NextPageWithLayout = () => {
-  const router = useRouter();
+ 
+  // const {profile} = useAuth();
 
   return (
     <>
