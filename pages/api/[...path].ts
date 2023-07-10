@@ -23,8 +23,7 @@ export default function handler(
    const cookies = new Cookies(req,res)
    const access_token = cookies.get('access_token')
    if(access_token){
-    console.log("co token")
-    console.log(access_token)
+  
     req.headers.Authorization = `Bearer ${access_token}`
    }
 

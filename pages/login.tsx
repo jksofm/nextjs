@@ -4,7 +4,7 @@ import { Box, Button, Container, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useAuth } from '../hooks';
-
+import { ToastContainer, toast } from 'react-toastify';
 export default function LoginPage() {
   const { profile, login, logout } = useAuth({
     revalidateOnMount: false,
@@ -14,9 +14,29 @@ export default function LoginPage() {
   const handleLoginClick = async (data: LoginPayload) => {
     try {
       await login(data);
-      console.log('redirect to dashboard');
-    } catch (error) {
-      console.log('fail to Login', error);
+      toast.success('Login successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    } catch (error:any) {
+      const err =JSON.parse(error)
+      // console.log('fail to Login', err?.error);
+      toast.error(`${err?.error}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
   };
   // Chuyển sang home page khi đăng nhập thành công

@@ -1,7 +1,9 @@
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import {Box,Typography} from "@mui/material"
+import {Box,Typography,Stack} from "@mui/material"
+import { StorageKeys } from '@/constants';
+import LinearProgress from '@mui/material/LinearProgress';
 
 export interface AuthLayoutProps {
 children : any
@@ -27,21 +29,26 @@ export default function AuthLayout (props: AuthLayoutProps) {
       
 
     },[router,profile,firstLoading])
+    if (typeof window !== 'undefined') {
+     
 
-    if(!profile?.username) {
-               return (
-               <Box textAlign="center">
-                <Typography component="h2" variant='h2' sx={{
-                  color : "primary.main",
-                  fontWeight: "700",
-                  marginTop: "40%"
-                
-                }}>
-                  YOU HAVE TO LOGIN
-                </Typography>
-               </Box>
-               )
+      // Perform localStorage action
+      if(!profile?.username && !localStorage.getItem(StorageKeys.USER_INFO)) {
+        return (
+        <Box textAlign="center">
+         <Typography component="h2" variant='h2' sx={{
+           color : "primary.main",
+           fontWeight: "700",
+           marginTop: "200px"
+         
+         }}>
+           YOU HAVE TO LOGIN
+         </Typography>
+        </Box>
+        )
+}
     }
+   
   return (
     <div>
       {props.children}

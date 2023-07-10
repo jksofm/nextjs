@@ -27,7 +27,7 @@ export default function About(props: AboutPageProps) {
   options={top100Films}
   sx={{ width: 300 }}
   onChange={(e,value)=>{
-       console.log(value)
+      
   }}
   renderInput={(params) => {
     // console.log(params)

@@ -1,13 +1,14 @@
-import React from 'react';
-import { useController, Control } from 'react-hook-form';
+import React, { ChangeEvent } from 'react';
+import { useController, Control ,FieldValues,Path } from 'react-hook-form';
 import { Box, TextField, TextFieldProps } from '@mui/material';
 
-export type InputFieldProps = TextFieldProps & {
-  name: string;
+export type InputFieldProps<T extends FieldValues> = TextFieldProps & {
+  name: Path<T>; ///Filted values là một kiễu dữ liệu object chứa key và value, value là kiểu any, key là string
+  // Path<T> nghĩ là name sẽ là key của dữ liệu này
 
-  control: Control<any>;
+  control: Control<T>;
 };
-export function InputField({
+export function InputField<T extends FieldValues>({
   name,
   label,
   control,
@@ -16,7 +17,7 @@ export function InputField({
   value: externalValue,
   ref: externalRef,
   ...rest
-}: InputFieldProps) {
+}: InputFieldProps<T>) {
   const {
     field: { onChange, onBlur, value, ref },
     fieldState: { error },
@@ -31,7 +32,10 @@ export function InputField({
       margin="normal"
       name={name}
       value={value}
-      onChange={onChange}
+      onChange={(event: ChangeEvent<HTMLInputElement>)=>{
+        onChange(event)
+        externalOnChange?.(event)
+      }}
       onBlur={onBlur}
       inputRef={ref}
       {...rest}

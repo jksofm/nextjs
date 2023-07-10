@@ -1,23 +1,42 @@
 import { Work } from '@/models';
 import * as React from 'react';
-import {Box,Grid,Stack, Typography} from "@mui/material"
+import {Box,Grid,Stack, Typography,Link as  MuiLink,Skeleton} from "@mui/material"
 import Image from 'next/image';
+import Link from 'next/link';
 import image1 from "../../../images/home/feature11.jpg"
 import format from 'date-fns/format'
+import { useWorks } from '@/hooks';
 
-
-export default function WorkItem ({title,shortDescription,fullDescription,created,updated,thumbUrl,tagList,id}: Work) {
+interface WorkItemProps {
+  workData : Work
+  
+}
+export default function WorkItem ({workData}:WorkItemProps) {
+    const {title,shortDescription,fullDescription,createdAt,updatedAt,thumbnailUrl,tagList,id} = workData
+   
+    
   return (
     <Box>
+      <MuiLink sx={{
+        "&:hover": {
+          textDecoration: "none"
+        }
+      }} href={`/works/${id}`} component={Link} passHref>
+
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
-          <Box
-          sx={{
-           
-          }}
-          >
-            <Image width={246} height={180} alt="Image Work" src={thumbUrl} layout='responsive' />
-          </Box>
+            {false ? (
+                <>
+                 <Skeleton  sx={{width: "100%",minHeight: "200px",borderRadius: "8px" }} animation="wave" variant="rectangular" />
+                </>
+            ):(
+              <Box
+          
+              >
+                <Image width={246} height={180} alt="Image Work" src={thumbnailUrl} layout='responsive' />
+              </Box>
+            )}
+       
           </Grid>
           <Grid item xs={12} md={8}>
              <Stack>
@@ -44,7 +63,7 @@ export default function WorkItem ({title,shortDescription,fullDescription,create
                 borderRadius: "16px",
                 padding: "2px 8px"
                }}
-               >{format(Number(created),"yyyy")}</Typography>
+               >{format(Number(createdAt),"yyyy")}</Typography>
                 <Typography
                  fontSize={{
                     xs:"16px",
@@ -61,6 +80,7 @@ export default function WorkItem ({title,shortDescription,fullDescription,create
              </Stack>
           </Grid>
         </Grid>
+      </MuiLink>
     </Box>
   );
 }

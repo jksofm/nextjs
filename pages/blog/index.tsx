@@ -17,7 +17,7 @@ export interface BlogListPageProps {
 export default function BlogListPage ({
 blogs
 }: BlogListPageProps) {
-  console.log(blogs)
+ 
   return (
     <Box>
         <Seo data={{
@@ -34,7 +34,7 @@ blogs
       </Typography>
 
       <Box mt={4}>
-            {blogs.map((blog)=>{
+            {blogs?.map((blog)=>{
               return(
                 
                 <MuiLink key={blog.id} sx={{

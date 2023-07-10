@@ -1,4 +1,4 @@
-import useSWR from "swr"
+import useSWR,{SWRConfiguration} from "swr"
 import { authApi } from "../api-client"
 import { LoginPayload, UserProfile } from "@/models"
 import { StorageKeys } from "@/constants"

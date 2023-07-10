@@ -1,15 +1,12 @@
+import { Seo } from '@/components/common';
+import AuthLayout from '@/components/common/auth';
+import MainLayout from '@/layout/main';
 import { Post } from '@/models';
 import { GetBlogFromId, GetBlogListId } from '@/utils/convert-markdown';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import * as React from 'react';
-import { Container, Box, Stack, Typography } from '@mui/material';
-import MainLayout from '@/layout/main';
 import Script from 'next/script';
-import { Seo } from '@/components/common';
-import AdminLayout from '@/layout/admin';
-import AuthLayout from '@/components/common/auth';
 
 export interface PostDetailPageProps {
   post: Post;
@@ -17,9 +14,9 @@ export interface PostDetailPageProps {
 
 export default function BlogDetailPage({ post }: PostDetailPageProps) {
   const router = useRouter();
-  console.log(post);
+ 
   if (!post) return <h1>Khoong co thong tin</h1>;
-  console.log(typeof(post.htmlContent))
+
   return (
     <AuthLayout>
   <Box>
@@ -86,7 +83,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const listId = await GetBlogListId();
 
   return {
-    paths: listId.map((item: any) => {
+    paths: listId?.map((item: any) => {
       return {
         params: { blogId: item },
       };

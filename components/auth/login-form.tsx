@@ -46,7 +46,7 @@ export default function LoginForm({ onSubmit, username, password }: LoginFormPro
   /// handleSubmit
 
   const handleLoginSubmit =  async(values: LoginPayload) => {
-    console.log(values);
+   
     await onSubmit(values);
   };
 

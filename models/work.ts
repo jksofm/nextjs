@@ -4,7 +4,12 @@ export interface Work {
     tagList : string[]
     shortDescription : string
     fullDescription : string
-    created: string
-    updated : string,
-    thumbUrl : string
+    createdAt: string
+    updatedAt : string,
+    thumbnailUrl : string
+}
+export interface WorkFiltersPayload {
+    search : string,
+    tagList_like : string
+    selectTagList? : string[]
 }

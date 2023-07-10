@@ -71,7 +71,7 @@ export default function RecentPosts(props: RecentPostsProps) {
           </Box>
           <Box>
             <Grid container spacing={2}>
-              {dataPosts.map((post) => {
+              {dataPosts?.map((post) => {
                 return (
                   <Grid key={post.id} item xs={12} md={6}>
                     <SinglePost

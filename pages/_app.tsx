@@ -5,14 +5,15 @@ import type { AppProps } from 'next/app';
 import { AppPropsWithLayout } from '../models';
 import { SWRConfig } from 'swr';
 import axiosClient from '@/api-client/axios-client';
-
+import { ToastContainer, toast } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../utils/theme';
 import createEmotionCache from '../utils/create-emotion-cache';
 import Head from 'next/head';
-import '@/styles/prism.css'
+import '@/styles/prism.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -31,6 +32,20 @@ export default function App({
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

@@ -12,7 +12,7 @@ export default function PostListPage ({posts}: PostListPageProps) {
       <h1>Post list Page</h1>
 
       <ul>
-        {posts.map(post=><li key={post.id}>
+        {posts?.map(post=><li key={post.id}>
             <Link passHref legacyBehavior href={`/posts/${post.id}`}>
                 <a>
                 {post.title}
