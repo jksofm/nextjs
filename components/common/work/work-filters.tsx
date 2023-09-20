@@ -25,13 +25,6 @@ export default function FiltersWork({ onSubmit, initialfilters }: FiltersWorkPro
   
 
   //Validation
-  const schema = yub.object().shape({
-    username: yub
-      .string()
-      .required('Please enter username')
-      .min(4, 'Username is too short. Username is required to have at lease 4 characters'),
-    password: yub.string().required().min(6, 'Password is required to have at lease 6 characters'),
-  });
 
   ///Xử li password input
 

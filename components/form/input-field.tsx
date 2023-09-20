@@ -8,6 +8,7 @@ export type InputFieldProps<T extends FieldValues> = TextFieldProps & {
 
   control: Control<T>;
 };
+// Khi minh set generic type cho inputfiled la T extend Filedvalues thì mình sẽ chắc chắn được rằng name truyền trong props sẽ là key của thằng field values
 export function InputField<T extends FieldValues>({
   name,
   label,

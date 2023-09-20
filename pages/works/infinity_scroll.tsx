@@ -5,13 +5,14 @@ import SkeletonWorkList from '@/components/common/work/skeleton-work-list';
 import FiltersWork from '@/components/common/work/work-filters';
 import WorkList from '@/components/common/work/work-list';
 import { useWorks } from '@/hooks';
+import { useWorkInfinitys } from '@/hooks/use-work-list-infinity';
 import MainLayout from '@/layout/main';
-import { WorkFiltersPayload } from '@/models';
-import { ListParams } from '@/models/api';
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import Link from 'next/link';
+import { Work, WorkFiltersPayload } from '@/models';
+import { ListParams, ListResponse } from '@/models/api';
+import { Box, Container, Stack, Typography,Button, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/router';
 import * as React from 'react';
+import {useInView} from 'react-intersection-observer'
 
 export interface WorksPageProps {}
 
@@ -20,26 +21,38 @@ export default function WorksPage(props: WorksPageProps) {
 
   const router = useRouter();
   const filters: Partial<ListParams> = {
-    _page: 1,
-    _limit: 3,
+   
     ...router.query,
   };
 
-  const { data, isLoading } = useWorks({ params: filters });
-  const handlePagination = (value: number) => {
-    router.push(
-      {
-        pathname: router.pathname,
-        query: {
-          ...filters,
+  const { data, isLoading,isValidating,size,setSize } = useWorkInfinitys({ params: filters });
+  // console.log({data,size});
+  const workList:Array<Work> = data?.reduce((result:Array<Work>,currentPage : ListResponse<Work>)=>{
+     result.push(...currentPage.data)
+    return result
+  },[]) || []
+  const pagination  = data?.[0].pagination
 
-          _page: value,
-        },
-      },
-      undefined,
-      { shallow: true }
-    );
-  };
+  const totalPage = Math.ceil((pagination?._totalRows as number)/(pagination?._limit as number))
+
+  const {ref} = useInView({
+    onChange(inView,entry){
+      if(inView === true){
+        setSize((x)=>x+1)
+
+      }
+      
+    }
+
+  })
+
+  
+
+
+  
+
+
+
   const handleFiltersWork = (values: WorkFiltersPayload) => {
     if (values.search?.trim() !== '') {
       router.push(
@@ -48,9 +61,10 @@ export default function WorksPage(props: WorksPageProps) {
           query: {
             ...filters,
             title_like: values.search,
-            _page: 1,
+            
+          
+            tagList_like: values.tagList_like
 
-            tagList_like: values.tagList_like,
           },
         },
         undefined,
@@ -62,20 +76,24 @@ export default function WorksPage(props: WorksPageProps) {
         {
           pathname: router.pathname,
           query: {
-            _page: 1,
-            _limit: 3,
-            tagList_like: values.tagList_like,
+         
+            
+            tagList_like: values.tagList_like
+           
           },
         },
         undefined,
         { shallow: true }
       );
     }
+   
   };
   React.useEffect(() => {
-    if (router.isReady) {
+    if(router.isReady){
       setRouterReady(true);
+
     }
+         
   }, [router.isReady]);
 
   return (
@@ -91,44 +109,11 @@ export default function WorksPage(props: WorksPageProps) {
           }}
         />
         <Container sx={{ paddingTop: '100px', paddingBottom: '100px' }}>
-          <Stack mb={4} justifyContent="space-between" flexDirection="row" alignItems="center">
-            <Typography variant="h4" fontWeight="700" component="h1">
-              Works
-            </Typography>
-            <Button
-              sx={{
-                fontSize: '1.2rem',
-              }}
-            >
-              <Link href="/works/add">Add Work</Link>
-            </Button>
-          </Stack>
+          <Typography variant="h4" fontWeight="700" marginBottom="40px" component="h1">
+            Works
+          </Typography>
 
-          <Stack
-            flexDirection={{
-              xs: 'column',
-              sm: 'row',
-            }}
-            justifyContent={{
-              sm: 'space-between',
-            }}
-            alignItems={{
-              sm: 'center',
-            }}
-            spacing={{
-              xs: 2,
-              md: 0,
-            }}
-            mb={2}
-          >
-            <PaginationComponent
-              setPage={handlePagination}
-              limit={filters?._limit}
-              total={data?.pagination?._totalRows}
-            />
 
-            {/* <SearchBox total={data?.pagination._totalRows} searchFilter = {setFilters} /> */}
-          </Stack>
           <Box
             mb={4}
             maxWidth={{
@@ -144,16 +129,17 @@ export default function WorksPage(props: WorksPageProps) {
                 selectTagList : []
               }}
             /> } */}
-            {routerReady && (
-              <FiltersWork
+            {routerReady && <FiltersWork
                 onSubmit={handleFiltersWork}
                 initialfilters={{
                   search: filters.title_like || '',
-                  tagList_like: filters.tagList_like || '',
-                  selectTagList: filters.tagList_like?.split('|'),
+                  tagList_like: filters.tagList_like || "",
+                  selectTagList: filters.tagList_like?.split("|"),
                 }}
-              />
-            )}
+              />}
+            
+              
+           
           </Box>
 
           {isLoading ? (
@@ -161,8 +147,21 @@ export default function WorksPage(props: WorksPageProps) {
           ) : (
             <>
               <Stack>
-                <WorkList workList={data?.data} />
+                <WorkList  workList={workList} />
+
+
               </Stack>
+
+             {(size < totalPage) && (
+               <Button disabled={isValidating} ref={ref} sx={{
+                marginTop: 3
+              }} variant='contained' onClick={()=>setSize((x)=>x+1)}>
+                Load more {workList.length > 0 && isValidating && <CircularProgress sx={{
+                  // color : 'black',
+                  marginLeft: '6px'
+                }}  size={24}/>}
+              </Button>
+             )}
             </>
           )}
         </Container>

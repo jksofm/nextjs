@@ -34,15 +34,7 @@ export function AutoCompleteField<T, K extends FieldValues>({
   ...rest
   
 }: AutoCompleteFieldProps<T, K>) {
-  const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
-  ];
+
   const {
     field: { onChange, onBlur, value, ref },
     fieldState: { error },
@@ -55,11 +47,12 @@ export function AutoCompleteField<T, K extends FieldValues>({
     <Autocomplete
       multiple
       id="checkboxes-tags-demo"
-      options={options}
       fullWidth
       size="small"
       disableCloseOnSelect
-     
+
+      
+      options={options}
       isOptionEqualToValue={isOptionEqualToValue}
       getOptionLabel={getOptionLabel}
       renderOption={(props, option, { selected }) => (
