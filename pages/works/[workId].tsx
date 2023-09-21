@@ -212,17 +212,17 @@ export default function AddEditWorkPage(props: AddEditWorkPageProps) {
 }
 AddEditWorkPage.Layout = MainLayout;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   return {
+//     paths: [],
 
-    fallback: false,
-  };
-};
-export async function getStaticProps() {
-  console.log('get static props');
+//     fallback: false,
+//   };
+// };
+// export async function getStaticProps() {
+//   console.log('get static props');
 
-  return {
-    props: {},
-  };
-}
+//   return {
+//     props: {},
+//   };
+// }
