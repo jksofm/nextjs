@@ -17,12 +17,7 @@ export interface FiltersWorkProps {
 
 export default function FiltersWork({ onSubmit, initialfilters }: FiltersWorkProps) {
   const router = useRouter();
-  const {data} = useTags({});
-
-   
-
-
-  
+  const { data } = useTags({});
 
   //Validation
 
@@ -32,11 +27,11 @@ export default function FiltersWork({ onSubmit, initialfilters }: FiltersWorkPro
   const {
     control,
     handleSubmit,
-    
+
     formState: { isSubmitting },
   } = useForm<WorkFiltersPayload>({
     defaultValues: {
-      search: "",
+      search: '',
       selectTagList: [],
       ...initialfilters,
     },
@@ -44,65 +39,56 @@ export default function FiltersWork({ onSubmit, initialfilters }: FiltersWorkPro
   });
   /// handleSubmit
 
-  const handleFiltersSubmit = async (values:WorkFiltersPayload) => {
-      console.log(values)
-      if(!values) return
-      values.tagList_like = values.selectTagList?.join("|") || ""
-      delete values.selectTagList
-     
+  const handleFiltersSubmit = async (values: WorkFiltersPayload) => {
+    console.log(values);
+    if (!values) return;
+    values.tagList_like = values.selectTagList?.join('|') || '';
+    delete values.selectTagList;
+
     await onSubmit(values);
   };
   function handleFilterChange() {
-   
-    handleSubmit(handleFiltersSubmit)(); 
+    handleSubmit(handleFiltersSubmit)();
   }
- 
+
   const debounceSearchChange = debounce(handleFilterChange, 350);
   // const debounceSearchChange = debounce(handleSubmit(handleFiltersSubmit),350)
 
-
-
-    return (
-      <Box
-        component="form"
-        // onSubmit={handleSubmit(handleFiltersSubmit)}
-      >
-        <InputField
-          placeholder="Search"
-          name="search"
-         
-          control={control}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            debounceSearchChange();
-             
-          }}
-        />
-        <AutoCompleteField
-          name="selectTagList"
-          placeholder="Search by tag list"
-          options={data?.data || []}
-          getOptionLabel={(option) => {
-            return option  }}
-          control={control}
-          label="Filtered by category"
-          isOptionEqualToValue={(option, value) => option === value}
-          onChange={(selectedOptions )=>{
-            // console.log(selectedOptions)
-           debounceSearchChange()
-        
-            
-          }}
-        />
-     
-      </Box>
-    );
-  
-
+  return (
+    <Box
+      component="form"
+      // onSubmit={handleSubmit(handleFiltersSubmit)}
+    >
+      <InputField
+        placeholder="Search"
+        name="search"
+        control={control}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          debounceSearchChange();
+        }}
+      />
+      <AutoCompleteField
+        name="selectTagList"
+        placeholder="Search by tag list"
+        options={data?.data || []}
+        getOptionLabel={(option) => {
+          return option;
+        }}
+        control={control}
+        label="Filtered by category"
+        isOptionEqualToValue={(option, value) => option === value}
+        onChange={(selectedOptions) => {
+          // console.log(selectedOptions)
+          debounceSearchChange();
+        }}
+      />
+    </Box>
+  );
 }
